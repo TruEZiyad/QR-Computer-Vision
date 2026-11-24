@@ -1,23 +1,29 @@
 import cv2
 import numpy as np
 from pyzbar.pyzbar import decode
+import webbrowser
 
-# img = cv2.imread('multiQR.png')
+img = cv2.imread('Rickrolling_QR_code.png')
+data = decode(img)
+print(data[0].data.decode('utf-8'))
 
-cap = cv2.VideoCapture(0)
-cap.set(3, 640)
-cap.set(4, 480)
+webbrowser.open_new_tab(data[0].data.decode("utf-8"))
 
-while True:
-    success, img = cap.read()
+# cap = cv2.VideoCapture(0)
+# cap.set(3, 640)
+# cap.set(4, 480)
 
-    for barcode in decode(img):
-        # print(barcode.rect)
-        print(f"Data ------> {barcode.data.decode('utf-8')}")
+# while True:
+#     success, img = cap.read()
 
-        pts = np.array([barcode.polygon], np.int32)
-        pts = pts.reshape((-1, 1, 2))
-        cv2.polylines(img, [pts], True, (255, 0, 255), 5)
+#     for barcode in decode(img):
+#         # print(barcode.rect)
+#         print(f"Data ------> {barcode.data.decode('utf-8')}")
 
-    cv2.imshow("Result", img)
-    cv2.waitKey(1)
+#         pts = np.array([barcode.polygon], np.int32)
+#         pts = pts.reshape((-1, 1, 2))
+#         cv2.polylines(img, [pts], True, (255, 0, 255), 5)
+
+#     cv2.imshow("Result", img)
+#     cv2.waitKey(1)
+
